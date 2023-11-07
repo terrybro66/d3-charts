@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from "react";
 import * as d3 from "d3";
 
-const D3Component = ({ data }) => {
+const BarChart = ({ data }) => {
   const d3Container = useRef(null);
 
   useEffect(() => {
@@ -38,7 +38,16 @@ const D3Component = ({ data }) => {
         .attr("y", (d) => y(d.name))
         .attr("width", (d) => x(d.value))
         .attr("height", y.bandwidth())
-        .attr("fill", "#69b3a2");
+        .attr("fill", "#69b3a2")
+        .on("mouseover", function () {
+          d3.select(this).attr("fill", "orange");
+        })
+        .on("mouseout", function () {
+          d3.select(this).attr("fill", "steelblue");
+        })
+        .on("click", function (event, d) {
+          alert(`You clicked on ${d.name}`);
+        });
 
       // Add the x Axis
       svg
@@ -59,4 +68,4 @@ const D3Component = ({ data }) => {
   );
 };
 
-export default D3Component;
+export default BarChart;
